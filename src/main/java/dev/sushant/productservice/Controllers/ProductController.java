@@ -1,5 +1,9 @@
 package dev.sushant.productservice.Controllers;
 
+import dev.sushant.productservice.Services.ProductService;
+import dev.sushant.productservice.dtos.GenericProductDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -8,14 +12,23 @@ import java.util.UUID;
 @RequestMapping("/products")
 public class ProductController {
 
+
+    private ProductService productService;
+
+    @Autowired
+    public ProductController(@Qualifier("FakeStoreProductService") ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping
     public void getAllProducts(){
 
     }
 
     @GetMapping("{id}")
-    public String getProductById(@PathVariable("id") Long id){
-        return "Here is product id: " +id;
+    public GenericProductDTO getProductById(@PathVariable("id") Long id){
+
+        return productService.getProductyId((id));
     }
 
     @PostMapping
