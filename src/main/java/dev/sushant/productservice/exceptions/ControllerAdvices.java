@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ControllerAdvices {
-    @ExceptionHandler(NotFoundException.class)
-    private ResponseEntity<NotFoundException> handleNotFoundException(NotFoundException e){
-        return new ResponseEntity(
-                new ExceptionDto(HttpStatus.NOT_FOUND,e.getMessage()),
-                HttpStatus.NOT_FOUND
-        );
-    }
+//    @ExceptionHandler(NotFoundException.class)
+//    private ResponseEntity<NotFoundException> handleNotFoundException(NotFoundException e){
+//        return new ResponseEntity(
+//                new ExceptionDto(HttpStatus.NOT_FOUND,e.getMessage()),
+//                HttpStatus.NOT_FOUND
+//        );
+//    }
 }

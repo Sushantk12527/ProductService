@@ -1,4 +1,4 @@
-package dev.sushant.productservice.dtos;
+package dev.sushant.productservice.ThirdPartyClient.ProductServiceClient.FakeStoreClient;
 
 import dev.sushant.productservice.models.Category;
 import lombok.Getter;
