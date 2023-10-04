@@ -6,6 +6,8 @@ import dev.sushant.productservice.dtos.GenericProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +70,25 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public GenericProductDTO deteleProduct(Long id) {
        return convertFakeStoreProductIntoGenericProduct(fakeStoreProductServiceClient.deteleProduct(id)) ;
+    }
+
+    @Override
+    public List<String> getAllCategories() {
+
+       return fakeStoreProductServiceClient.getAllCategories();
+
+    }
+
+    @Override
+    public List<GenericProductDTO> getByCategory(String category) {
+        List<GenericProductDTO> genericProductDTOS= new ArrayList<>();
+
+        List<FakeStoreProductDTO> fakeStoreProductDTOS= fakeStoreProductServiceClient.getByCategory(category);
+
+        for(FakeStoreProductDTO fakeStoreProductDTO: fakeStoreProductDTOS){
+            genericProductDTOS.add(convertFakeStoreProductIntoGenericProduct(fakeStoreProductDTO));
+        }
+        return genericProductDTOS;
     }
 
 

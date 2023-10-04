@@ -1,6 +1,7 @@
 package dev.sushant.productservice.Controllers;
 
 import dev.sushant.productservice.Services.ProductService;
+import dev.sushant.productservice.ThirdPartyClient.ProductServiceClient.FakeStoreClient.FakeStoreProductDTO;
 import dev.sushant.productservice.dtos.ExceptionDto;
 import dev.sushant.productservice.dtos.GenericProductDTO;
 import dev.sushant.productservice.exceptions.NotFoundException;
@@ -58,6 +59,17 @@ public class ProductController {
 
     }
 
+    @GetMapping("/categories")
+    public List<String> getAllCategories(){
+        return productService.getAllCategories();
+    }
 
+    @GetMapping("/category/{category}")
+    public  List<GenericProductDTO> getByCategory(@PathVariable("category") String category){
+
+        return  productService.getByCategory(category);
+
+
+    }
 
 }

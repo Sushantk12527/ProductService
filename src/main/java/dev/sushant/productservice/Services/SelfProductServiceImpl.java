@@ -1,5 +1,6 @@
 package dev.sushant.productservice.Services;
 
+import dev.sushant.productservice.ThirdPartyClient.ProductServiceClient.FakeStoreClient.FakeStoreProductDTO;
 import dev.sushant.productservice.dtos.GenericProductDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,16 @@ public class SelfProductServiceImpl implements ProductService{
 
     @Override
     public GenericProductDTO deteleProduct(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<String> getAllCategories() {
+        return null;
+    }
+
+    @Override
+    public List<GenericProductDTO> getByCategory(String category) {
         return null;
     }
 }

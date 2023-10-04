@@ -1,5 +1,6 @@
 package dev.sushant.productservice.ThirdPartyClient.ProductServiceClient.FakeStoreClient;
 
+import dev.sushant.productservice.Services.FakeStoreProductService;
 import dev.sushant.productservice.dtos.GenericProductDTO;
 import dev.sushant.productservice.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,14 +32,23 @@ public class FakeStoreProductServiceClient  {
 
     private String allProductsUrl;
     private String specificProductUrl;
+    private String allCategoriesUrl;
+    private String specificCategoryUrl;
 
         private RestTemplateBuilder restTemplateBuilder;
 
 
-    public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder,@Value("${fakestore.Api.Url}") String allProductsUrl,@Value("${fakestore.Api.Paths.Product}") String specificProductUrl) {
+    public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder,
+                                         @Value("${fakestore.Api.Url}") String allProductsUrl,
+                                         @Value("${fakestore.Api.Paths.Product}") String specificProductUrl,
+                                         @Value("${fakestore.Api.Paths.Allcategories}") String allCategoriesUrl,
+                                         @Value("${fakestore.Api.Paths.specific.Category}") String specificCategoryUrl
+                                         ) {
         this.restTemplateBuilder = restTemplateBuilder;
         this.allProductsUrl=allProductsUrl+specificProductUrl;
         this.specificProductUrl=allProductsUrl+specificProductUrl+"/{id}";
+        this.allCategoriesUrl=allProductsUrl+allCategoriesUrl;
+        this.specificCategoryUrl=allProductsUrl+specificCategoryUrl+"/{category}";
     }
 
 
@@ -106,5 +116,23 @@ public class FakeStoreProductServiceClient  {
 
 
         return  fakeStoreProductDTO;
+    }
+
+    public List<String> getAllCategories(){
+        RestTemplate restTemplate= restTemplateBuilder.build();
+        ResponseEntity<List> response= restTemplate.getForEntity(allCategoriesUrl,List.class);
+
+        return response.getBody().stream().toList();
+
+    }
+
+    public List<FakeStoreProductDTO> getByCategory(String category) {
+        RestTemplate restTemplate=restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDTO[]> response= restTemplate.getForEntity(specificCategoryUrl,FakeStoreProductDTO[].class,category);
+//
+//        List<FakeStoreProductDTO> fakeStoreProductDTOS=response.getBody();
+//        return fakeStoreProductDTOS;
+
+       return Arrays.stream(response.getBody()).toList();
     }
 }
