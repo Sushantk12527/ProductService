@@ -129,9 +129,7 @@ public class FakeStoreProductServiceClient  {
     public List<FakeStoreProductDTO> getByCategory(String category) {
         RestTemplate restTemplate=restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDTO[]> response= restTemplate.getForEntity(specificCategoryUrl,FakeStoreProductDTO[].class,category);
-//
-//        List<FakeStoreProductDTO> fakeStoreProductDTOS=response.getBody();
-//        return fakeStoreProductDTOS;
+
 
        return Arrays.stream(response.getBody()).toList();
     }
